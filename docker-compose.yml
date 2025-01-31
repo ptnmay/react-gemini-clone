@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  app:
+    image: react_gemini
+    container_name: react_gemini
+    build: ./requirements/react/
+    working_dir: /var/run/react_gemini/
+    env_file:
+      - ./.env
+    volumes:
+      - react_gemini:/var/run/react_gemini/
+    ports:
+      - 5173:5173
+    networks:
+      - react_gemini
+
+volumes:
+  react_gemini:
+    name: react_gemini
+    driver: local
+    driver_opts:
+      device: ./requirements/react/react-app/
+      o: bind
+      type: none
+
+networks:
+  react_gemini:
+    name: react_gemini
